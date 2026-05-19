@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- ===== SEO META TAGS ===== -->
+    <meta name="description" content="FLASH NEWS delivers real-time headlines and 24/7 live updates across politics, tech, sports, and finance. Stay informed with our dynamic live news ticker.">
+    <meta name="keywords" content="live news, news ticker, breaking news, real-time news, 24/7 news, news feed, latest headlines">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="FLASH NEWS">
+    <link rel="canonical" href="./">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FLASH NEWS | 24/7 Live News Ticker & Breaking Updates">
+    <meta property="og:description" content="FLASH NEWS delivers real-time headlines and 24/7 live updates across politics, tech, sports, and finance. Stay informed with our dynamic live news ticker.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&h=630&q=80">
+    <meta property="og:site_name" content="FLASH NEWS">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FLASH NEWS | 24/7 Live News Ticker & Breaking Updates">
+    <meta name="twitter:description" content="FLASH NEWS delivers real-time headlines and 24/7 live updates across politics, tech, sports, and finance. Stay informed with our dynamic live news ticker.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FLASH NEWS",
+      "description": "FLASH NEWS delivers real-time headlines and 24/7 live updates across politics, tech, sports, and finance. Stay informed with our dynamic live news ticker.",
+      "applicationCategory": "Utility",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <!-- ========================= -->
+    <title>FLASH NEWS | 24/7 Updates</title>
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
+    <link rel="stylesheet" href="style.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Breaking News Details Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalBody">
+                <!-- Injected dynamically by script.js -->
+            </div>
+            
+            <!-- Strategic Corporate Sponsor inside details view -->
+            <div class="modal-ad">
+                <span class="ad-tag">LIVE MARKET SPONSOR</span>
+                <div class="modal-ad-grid">
+                    <img id="detail-ad-img" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=300&h=200&q=80" alt="Ad">
+                    <div>
+                        <h4 id="detail-ad-title">CapitalOne: Trading Platform</h4>
+                        <p id="detail-ad-desc">Trade stock indices, crypto pairs, and commodities with zero commission fees.</p>
+                        <button class="ad-btn" id="detail-ad-btn" aria-label="Detail Ad Btn">Open Free Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scrolling Ticker header ribbon -->
+    <div class="ticker-wrap">
+        <div class="ticker" id="newsTicker">
+            <!-- Ticker items will be injected here -->
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="container">
+        <header>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <h1>FLASH NEWS</h1>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <button id="btn-shuffle-news" style="background: var(--primary); border: 1px solid var(--primary); color: #fff; padding: 0.7rem 1.5rem; border-radius: 4px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.5rem;" aria-label="Btn Shuffle News">🔀 Shuffle</button>
+                    <button id="btn-open-alert-creator" style="background: transparent; border: 1px solid var(--border); color: #fff; padding: 0.7rem 1.5rem; border-radius: 4px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.2s ease;" aria-label="Btn Open Alert Creator">Set Alerts</button>
+                </div>
+            </div>
+            <nav style="margin-top: 1.5rem; display: flex; gap: 2rem; font-weight: 700; color: #666; font-size: 0.9rem;">
+                <a href="/" class="nav-tab active" data-cat="all">LATEST</a>
+                <a href="/" class="nav-tab" data-cat="Tech">TECH</a>
+                <a href="/" class="nav-tab" data-cat="Finance">FINANCE</a>
+                <a href="/" class="nav-tab" data-cat="AI">AI</a>
+                <a href="/" class="nav-tab" data-cat="World">WORLD</a>
+            </nav>
+        </header>
+
+        <!-- Feed lists -->
+        <section class="news-main" id="newsFeed">
+            <!-- News articles injected by script.js -->
+        </section>
+    </main>
+
+    <!-- 2. Custom Market Alerts Modal -->
+    <div id="alertModal" class="modal" style="z-index: 10020;">
+        <div class="modal-content" style="max-width: 500px; padding: 3.5rem;">
+            <span class="close-modal" id="btn-close-alert-modal">&times;</span>
+            <h2 style="font-size: 2.2rem; font-family: 'Archivo Black', sans-serif; font-weight:700; margin-bottom: 1rem; color: #111; letter-spacing: -1px; text-transform: uppercase;">Create Alert</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 2rem;">Track active asset indexes. Flash News will notify you programmatically on sudden movements.</p>
+
+            <form id="custom-alert-form" onsubmit="event.preventDefault(); submitCustomAlert();">
+                <div style="display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2.2rem;">
+                    <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                        <label style="font-size: 0.8rem; font-weight: 700; color: #111; text-transform: uppercase;">Target Index</label>
+                        <input type="text" id="alert-index-symbol" required placeholder="e.g. BTC, SpaceX, Tesla" style="padding: 0.8rem 1rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; font-family: inherit; font-size: 1rem; outline: none;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                        <label style="font-size: 0.8rem; font-weight: 700; color: #111; text-transform: uppercase;">Trigger Price ($)</label>
+                        <input type="number" id="alert-trigger-price" required placeholder="e.g. 95000, 420" style="padding: 0.8rem 1rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; font-family: inherit; font-size: 1rem; outline: none;">
+                    </div>
+                </div>
+                <button type="submit" class="ad-btn" style="width: 100%; padding: 1.1rem; border-radius: 8px;" aria-label="Button">Synchronize Alert</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Timed Scarcity Premium Upgrade Modal -->
+    <div id="premiumUpgradeModal" class="modal" style="z-index: 10050;">
+        <div class="modal-content" style="max-width: 650px; text-align: center; padding: 4rem 3rem;">
+            <div style="font-size: 3.5rem; margin-bottom: 1.5rem;">🌍</div>
+            <span class="ad-tag" style="display: inline-block; margin-bottom: 1rem;">FLASH NEWS PRO</span>
+            <h2 style="font-size: 2.8rem; font-family: 'Archivo Black', sans-serif; font-weight:700; margin-bottom: 1rem; color: #111; letter-spacing: -1px; text-transform: uppercase;">Get Unlimited Press Archives</h2>
+            <p style="font-size: 1.15rem; color: #666; line-height: 1.6; margin-bottom: 2.5rem;">Unlock the complete financial analytics suite, read advanced investigative files, and disable all dynamic sponsors.</p>
+
+            <div style="background: #fafafa; padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(0, 0, 0, 0.08); margin-bottom: 3rem;">
+                <div style="font-size: 0.8rem; font-weight: 800; color: #000; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">PRO ENROLLMENT CLOSES IN</div>
+                <div id="scarcity-countdown" style="font-size: 2.2rem; font-weight: 800; color: #111; font-family: monospace; letter-spacing: 2px;">10:00</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <button class="ad-btn" id="btn-upgrade-now" style="width: 100%; padding: 1.2rem; font-size: 1.2rem; background: #000; border: none; color: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);" aria-label="Btn Upgrade Now">
+                    Upgrade for $1.99 / mo
+                </button>
+                <button class="btn-secondary" id="btn-skip-upgrade" style="width: 100%; padding: 1rem; border: none; background: transparent; color: #747d8c; font-weight: 700; cursor: pointer;" aria-label="Btn Skip Upgrade">
+                    Keep Standard Tier
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Interstitial Skip-Ad Modal Overlay -->
+    <div id="interstitialModal" class="modal" style="z-index: 10100;">
+        <div class="modal-content" style="max-width: 600px; text-align: center; padding: 3rem; position:relative;">
+            <span class="ad-tag" style="display: inline-block; margin-bottom: 1.5rem;">SPONSORED FINANCE BLOCK</span>
+            
+            <div class="ad-sponsor-container" style="display: flex; gap: 2rem; align-items: center; text-align: left; margin-bottom: 2.5rem;">
+                <img id="interstitial-ad-img" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=200&h=200&q=80" style="width: 140px; height: 140px; border-radius: 12px; object-fit: cover; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                <div>
+                    <h3 id="interstitial-ad-title" style="font-size: 1.5rem; font-family: 'Archivo Black', sans-serif; font-weight:700; margin-bottom: 0.5rem; color:#222; letter-spacing: -1px; text-transform: uppercase;">CapitalOne: Trading Platform</h3>
+                    <p id="interstitial-ad-desc" style="font-size: 0.95rem; color: #555; line-height: 1.6;">Trade stock indices, crypto pairs, and commodities with zero commission fees.</p>
+                </div>
+            </div>
+
+            <div id="interstitial-ad-promo" style="background: #fafafa; padding: 1rem; border-radius: 8px; font-weight: 700; color: #000; font-size: 0.9rem; letter-spacing: 0.5px; border: 1px dashed rgba(0, 0, 0, 0.15); margin-bottom: 2.5rem;">
+                CODE "FREETRADE" FOR ZERO FEES
+            </div>
+
+            <div style="display: flex; gap: 1.5rem;">
+                <button class="btn-secondary" id="btn-skip-ad" style="flex: 1; padding: 1rem; opacity: 0.4; cursor: not-allowed; border: 1px solid #ccc; background: none; font-weight:700;" disabled aria-label="Btn Skip Ad">
+                    Skip Ad in 5s
+                </button>
+                <button class="ad-btn" id="btn-claim-ad" style="flex: 1; padding: 1rem; background: #000; border-color: #000; color:white;" aria-label="Btn Claim Ad">
+                    Claim Offer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Dynamic Inspiration Sync Celebration Success Modal -->
+    <div id="celebrationModal" class="modal" style="z-index: 10200;">
+        <div class="modal-content" style="max-width: 500px; text-align: center; padding: 3rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem; animation: pulse 1.5s infinite;">🔔</div>
+            <h2 style="font-size: 2.2rem; font-family: 'Archivo Black', sans-serif; font-weight:700; margin-bottom: 1rem; color: #111; letter-spacing: -1px; text-transform: uppercase;">Alert Registered!</h2>
+            <p style="font-size: 1.05rem; color: #555; line-height: 1.6; margin-bottom: 2.5rem;">Your real-time market tracker limits, API tickers, and notifications are successfully synchronised.</p>
+            <button class="ad-btn" id="btn-close-celebration" style="width: 100%; background: #000; border-color: #000; color: white;" aria-label="Btn Close Celebration">
+                Acknowledge Success
+            </button>
+        </div>
+    </div>
+
+    <!-- 6. Glassmorphic Exit Intent Discount Modal -->
+    <div id="exitIntentModal" class="modal" style="z-index: 10300;">
+        <div class="modal-content" style="max-width: 600px; text-align: center; padding: 4rem 3rem;">
+            <span class="close-modal" id="closeExitIntent">&times;</span>
+            <span class="ad-tag" style="display:inline-block; margin-bottom:1rem; position:static;">WAIT! BEFORE YOU LEAVE...</span>
+            <h2 style="font-size: 2.8rem; font-family: 'Archivo Black', sans-serif; font-weight:700; margin-bottom: 1rem; color: #111; letter-spacing: -1px; text-transform: uppercase;">Claim 80% Off Pro Feed</h2>
+            <p style="font-size: 1.15rem; color: #666; line-height: 1.6; margin-bottom: 2.5rem;">Unlock the complete financial analytics suite, read advanced investigative files, and disable all ads forever.</p>
+            <button class="ad-btn" style="width: 100%; font-size: 1.2rem; padding: 1.1rem; background: #000; border: none; color: white; border-radius: 12px;" aria-label="Button">
+                Claim 80% Discount Now
+            </button>
+            <p style="margin-top: 1.5rem; font-size: 0.95rem;"><a href="/" id="declineExitIntent" style="color: #999; text-decoration: underline;">No thanks, I prefer standard tier</a></p>
+        </div>
+    </div>
+
+    <!-- 7. Premium Mock Ad Blocker Modal -->
+    <div id="adBlockModal" class="modal" style="z-index: 10400; background: rgba(0,0,0,0.92);">
+        <div class="modal-content" style="max-width: 500px; text-align: center; padding: 3rem;">
+            <h2 style="font-size: 2.2rem; color: #ff4757; font-family: 'Archivo Black', sans-serif; font-weight:700; margin-bottom: 1rem; letter-spacing: -1px; text-transform: uppercase;">Ad Blocker Detected</h2>
+            <p style="font-size: 1.05rem; color: #555; line-height: 1.6; margin-bottom: 2.5rem;">We support this independent news feed through corporate sponsors. Please consider whitelisting our site or upgrade to support journalism micro-creators!</p>
+            <div style="display: flex; gap: 1rem;">
+                <button class="ad-btn" style="flex: 1; background: #000; border-color: #000; color: white;" onclick="location.reload()" aria-label="Button">I Whitelisted</button>
+                <button class="ad-btn" style="flex: 1; background: #ff4757; border-color: #ff4757; color: white;" id="btn-adblock-premium" aria-label="Btn Adblock Premium">Go Pro ($1.99)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. Decoupled Floating Programmatic Ad Banner -->
+    <div class="floating-ad-banner" id="floating-ad-banner" style="display: none;">
+        <!-- Injected programmatically by script.js -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">FLASH NEWS</div>
+            <div class="footer-links">
+                <h4>Discover</h4>
+                <ul>
+                    <li><a href="/" onclick="event.preventDefault()">Latest</a></li>
+                    <li><a href="/" onclick="event.preventDefault()">Tech News</a></li>
+                    <li><a href="/" onclick="event.preventDefault()">AI Reports</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Help</h4>
+                <ul>
+                    <li><a href="/" onclick="event.preventDefault()">Support</a></li>
+                    <li><a href="/" onclick="event.preventDefault()">Archives</a></li>
+                    <li><a href="/" onclick="event.preventDefault()">Advertising</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Social</h4>
+                <ul>
+                    <li><a href="/" onclick="event.preventDefault()">X / Twitter</a></li>
+                    <li><a href="/" onclick="event.preventDefault()">Telegram</a></li>
+                    <li><a href="/" onclick="event.preventDefault()">RSS Feed</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Flash News. Live & Unfiltered. | <a href="terms.html">Terms</a> | <a href="policy.html">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script src="script.min.js"></script>
+
+</body>
+</html>
